@@ -1,0 +1,66 @@
+# VoltIQ Platform Root .gitignore
+
+# Dependencies
+node_modules/
+*/node_modules/
+.pnp
+.pnp.js
+
+# Build Outputs
+dist/
+client/dist/
+server/dist/
+dist-ssr/
+*.tsbuildinfo
+
+# Environment & Sensitive Files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+!.env.example
+!server/.env.example
+
+# Local Database & Dynamic Data
+*.db
+*.sqlite
+*.sqlite3
+server/src/db/*.db
+data/*.db
+data/
+
+# Logs & Debugging
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Operating System Junk
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Editor & IDE Directories
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Temporary System Files
+.system_generated/
+scratch/

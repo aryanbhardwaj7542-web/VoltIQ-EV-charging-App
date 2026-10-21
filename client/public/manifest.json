@@ -1,0 +1,36 @@
+{
+  "name": "VoltIQ — India EV Charging Intelligence Platform",
+  "short_name": "VoltIQ",
+  "description": "Dynamic EV charging trust scores, Indian power grid verification, community audits, and offline emergency routing.",
+  "start_url": "/",
+  "id": "voltiq-india-ev-platform",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#10B981",
+  "orientation": "any",
+  "categories": ["utilities", "navigation", "travel"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Emergency Charging SOS",
+      "short_name": "SOS Charger",
+      "description": "Find nearest reachable DC fast charger in emergency",
+      "url": "/?mode=emergency",
+      "icons": [{ "src": "/favicon.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Station Trust Map",
+      "short_name": "Map",
+      "description": "Explore charging stations with verified trust scores",
+      "url": "/?mode=map",
+      "icons": [{ "src": "/favicon.svg", "sizes": "192x192" }]
+    }
+  ]
+}
