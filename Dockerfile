@@ -1,6 +1,6 @@
 
 # VoltIQ full-stack production Dockerfile
-FROM node:20-alpine AS build
+FROM node:20-bookworm-slim AS build
 
 WORKDIR /app
 
@@ -18,7 +18,7 @@ COPY server ./server
 RUN npm run build
 
 # Production runtime
-FROM node:20-alpine AS runner
+FROM node:20-bookworm-slim AS runner
 
 WORKDIR /app
 ENV NODE_ENV=production
@@ -26,6 +26,7 @@ ENV PORT=3001
 ENV CLIENT_DIST_PATH=/app/client/dist
 
 COPY package.json package-lock.json ./
+COPY client/package.json ./client/package.json
 COPY server/package.json ./server/package.json
 RUN npm ci --omit=dev
 
