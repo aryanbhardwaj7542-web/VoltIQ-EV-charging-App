@@ -1,39 +1,38 @@
-# Multi-stage Dockerfile for VoltIQ Production Deployment
-# Stage 1: Build Frontend
-FROM node:20-alpine AS client-builder
-WORKDIR /app/client
-COPY shared/ ../shared/
-COPY client/package*.json ./
+
+# VoltIQ full-stack production Dockerfile
+FROM node:20-alpine AS build
+
+WORKDIR /app
+
+# Install dependencies using the root npm workspace lockfile
+COPY package.json package-lock.json ./
+COPY client/package.json ./client/package.json
+COPY server/package.json ./server/package.json
 RUN npm ci
-COPY client/ ./
+
+# Copy source code and build both applications
+COPY shared ./shared
+COPY client ./client
+COPY server ./server
+
 RUN npm run build
 
-# Stage 2: Build Backend
-FROM node:20-alpine AS server-builder
-WORKDIR /app/server
-COPY shared/ ../shared/
-COPY server/package*.json ./
-RUN npm ci
-COPY server/ ./
-RUN npm run build
-
-# Stage 3: Production Runner
+# Production runtime
 FROM node:20-alpine AS runner
+
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3001
 ENV CLIENT_DIST_PATH=/app/client/dist
 
-# Copy built server
-COPY --from=server-builder /app/server/dist ./server/dist
-COPY --from=server-builder /app/server/package*.json ./server/
-COPY --from=server-builder /app/shared ./shared
+COPY package.json package-lock.json ./
+COPY server/package.json ./server/package.json
+RUN npm ci --omit=dev
 
-WORKDIR /app/server
-RUN npm ci --only=production
-
-# Copy static frontend bundle to serve directly via Express SPA fallback
-COPY --from=client-builder /app/client/dist /app/client/dist
+COPY --from=build /app/server/dist ./server/dist
+COPY --from=build /app/shared ./shared
+COPY --from=build /app/client/dist ./client/dist
 
 EXPOSE 3001
-CMD ["node", "dist/server/src/index.js"]
+
+CMD ["node", "server/dist/server/src/index.js"]
