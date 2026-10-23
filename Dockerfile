@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 COPY client/package.json ./client/package.json
 COPY server/package.json ./server/package.json
-RUN npm ci
+RUN npm ci --include=optional
 
 # Copy source code and build both applications
 COPY shared ./shared
@@ -28,7 +28,7 @@ ENV CLIENT_DIST_PATH=/app/client/dist
 COPY package.json package-lock.json ./
 COPY client/package.json ./client/package.json
 COPY server/package.json ./server/package.json
-RUN npm ci --omit=dev
+RUN npm ci --omit=dev --include=optional
 
 COPY --from=build /app/server/dist ./server/dist
 COPY --from=build /app/shared ./shared
