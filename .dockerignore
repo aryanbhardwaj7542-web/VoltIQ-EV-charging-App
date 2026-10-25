@@ -1,0 +1,37 @@
+# Dependencies (installed fresh inside the container)
+node_modules
+client/node_modules
+server/node_modules
+
+# Build outputs (rebuilt inside the container)
+dist
+client/dist
+server/dist
+
+# Version control
+.git
+.gitignore
+
+# Environment secrets (injected at runtime, never baked into the image)
+.env
+.env.*
+!.env.example
+
+# Documentation (not needed at runtime)
+*.md
+!README.md
+
+# Editor and OS junk
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker meta (avoid recursive context)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Scripts not needed in container
+start-production.ps1

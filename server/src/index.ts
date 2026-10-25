@@ -21,6 +21,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3001;
 
 // Defensive Security Middleware (OWASP Top 10)
@@ -106,7 +107,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 const server = http.createServer(app);
 realtimeHub.init(server);
 
-server.listen(PORT, () => {
-  console.log(`VoltIQ Intelligence Engine running on http://localhost:${PORT}`);
-  console.log(`VoltIQ Realtime WebSocket Hub available on ws://localhost:${PORT}/ws`);
+server.listen(Number(PORT), '0.0.0.0', () => {
+  console.log(`VoltIQ Intelligence Engine running on http://0.0.0.0:${PORT}`);
+  console.log(`VoltIQ Realtime WebSocket Hub available on ws://0.0.0.0:${PORT}/ws`);
 });
