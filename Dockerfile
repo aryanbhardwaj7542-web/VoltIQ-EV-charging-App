@@ -8,6 +8,9 @@ FROM node:20-bookworm-slim AS build
 
 WORKDIR /app
 
+# Upgrade npm to 11 to fix npm 10 workspace bug ("Cannot read properties of null (reading 'edgesOut')")
+RUN npm install -g npm@11
+
 # Copy workspace root manifests first (npm workspaces)
 COPY package.json package-lock.json ./
 COPY client/package.json ./client/package.json
