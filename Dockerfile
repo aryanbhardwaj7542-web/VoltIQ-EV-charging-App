@@ -13,8 +13,8 @@ COPY package.json package-lock.json ./
 COPY client/package.json ./client/package.json
 COPY server/package.json ./server/package.json
 
-# Install ALL dependencies (including devDependencies needed for build)
-RUN npm ci
+# Install ALL dependencies fresh on Linux (avoids Windows lockfile missing native bindings)
+RUN rm -f package-lock.json && npm install
 
 # Copy shared types (imported by both client and server)
 COPY shared ./shared
@@ -35,12 +35,12 @@ ENV NODE_ENV=production
 ENV PORT=3001
 ENV CLIENT_DIST_PATH=/app/client/dist
 
-# Copy workspace root manifests for production install
-COPY package.json package-lock.json ./
+# Copy workspace root manifests for production install (no Windows lockfile)
+COPY package.json ./
 COPY server/package.json ./server/package.json
 
 # Install only production dependencies for the server
-RUN npm ci --omit=dev --workspace=server --include-workspace-root
+RUN npm install --omit=dev --workspace=server --include-workspace-root
 
 # Copy built server output (tsc output: server/dist/server/src/...)
 COPY --from=build /app/server/dist ./server/dist
