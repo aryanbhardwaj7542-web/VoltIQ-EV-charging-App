@@ -6,7 +6,22 @@ import rateLimit from 'express-rate-limit';
  * Helmet HTTP Security Headers Middleware
  */
 export const helmetSecurity = helmet({
-  contentSecurityPolicy: false, // Disabled for local Vite dev proxy flexibility; if enabled, img-src must allow 'self', data:, blob:, https://*.tile.openstreetmap.org, https://*.basemaps.cartocdn.com
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "blob:",
+        "https://tile.openstreetmap.org",
+        "https://*.tile.openstreetmap.org"
+      ],
+      connectSrc: ["'self'", "ws:", "wss:", "http:", "https:"]
+    }
+  },
   referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
   crossOriginEmbedderPolicy: false,
   xFrameOptions: { action: 'deny' },

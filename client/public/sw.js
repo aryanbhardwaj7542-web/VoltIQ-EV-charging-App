@@ -60,7 +60,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Strategy 1: Map Tiles (Stale-While-Revalidate for offline map viewing)
-  if (url.hostname.includes('tile.openstreetmap.org') || url.hostname.includes('basemaps.cartocdn.com')) {
+  if (url.hostname.includes('tile.openstreetmap.org')) {
     event.respondWith(
       caches.open(TILE_CACHE_NAME).then((cache) => {
         return cache.match(request).then((cachedResponse) => {

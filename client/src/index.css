@@ -828,12 +828,14 @@ button {
 /* OpenStreetMap Dark & Street Tile Styling */
 .voltiq-map-tile-dark,
 .voltiq-map-tile-dark .leaflet-tile,
-img.leaflet-tile.voltiq-map-tile-dark {
-  filter: invert(100%) hue-rotate(180deg) brightness(85%) contrast(90%) !important;
+img.leaflet-tile.voltiq-map-tile-dark,
+.leaflet-tile-pane.voltiq-map-tile-dark {
+  filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.9) !important;
 }
 
 .voltiq-map-tile-street,
 .voltiq-map-tile-street .leaflet-tile,
-img.leaflet-tile.voltiq-map-tile-street {
+img.leaflet-tile.voltiq-map-tile-street,
+.leaflet-tile-pane.voltiq-map-tile-street {
   filter: none !important;
 }
