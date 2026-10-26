@@ -70,11 +70,11 @@ export const MapView: React.FC<MapViewProps> = ({
       attributionControl: true
     });
 
-    // 100% Free OpenStreetMap Standard Tiles (No API Key Required)
-    const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // Free CARTO Voyager Tiles (No API Key Required)
+    const tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
-      subdomains: ['a', 'b', 'c'],
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>',
+      subdomains: 'abcd',
       className: mapTheme === 'DARK' ? 'voltiq-map-tile-dark' : 'voltiq-map-tile-street'
     }).addTo(map);
     tileLayerRef.current = tileLayer;

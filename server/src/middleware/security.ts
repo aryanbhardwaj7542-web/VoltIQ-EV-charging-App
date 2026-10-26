@@ -6,7 +6,8 @@ import rateLimit from 'express-rate-limit';
  * Helmet HTTP Security Headers Middleware
  */
 export const helmetSecurity = helmet({
-  contentSecurityPolicy: false, // Disabled for local Vite dev proxy flexibility
+  contentSecurityPolicy: false, // Disabled for local Vite dev proxy flexibility; if enabled, img-src must allow 'self', data:, blob:, https://*.tile.openstreetmap.org, https://*.basemaps.cartocdn.com
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
   crossOriginEmbedderPolicy: false,
   xFrameOptions: { action: 'deny' },
   xContentTypeOptions: true,
